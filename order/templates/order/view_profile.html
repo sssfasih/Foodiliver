@@ -1,0 +1,47 @@
+{% extends 'order/layout.html' %}
+{% load static %}
+{% block main %}
+
+
+    <section id="recipes" class="container">
+
+
+           <!-- header start -->
+    <div class="container">
+        <div class="text-center">
+            <h1>{{ user.first_name }}</h1>
+            <h6>({{ user.username }})</h6>
+
+
+        </div>
+    </div>
+
+    </section>
+    <section id="recipes" class="container recipes">
+
+    <h1 class="text-center my-2">Favourite Recipes</h1>
+    <div class="row">
+        {% for eachRecipe in recipes %}
+        <div class="col-sm-12 col-md-6 col-lg-3 my-xs-4 my-lg-1">
+        <a href="{% url 'view_recipe' eachRecipe.Slug %}">
+        <div class="card">
+  <img width="300" height="225" src="{{ eachRecipe.images.first.image.url }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h2 class="card-text text-center">{{ eachRecipe.Name|title}}</h2>
+  </div>
+</div>
+        </a>
+        </div>
+            {% if forloop.counter|divisibleby:4  %}
+        </div><div class="row">
+
+            {% endif %}
+        {% empty %}
+            <div class="container">
+            <p class="text-center h4">There are no Recipes in your Favourites list. Press 'Add to Favourites' button on Recipe pages to add in your list.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    </section>
+{% endblock %}
