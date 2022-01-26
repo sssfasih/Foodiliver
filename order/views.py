@@ -164,6 +164,9 @@ def recipe_edit(request, id):
         return render(request, 'order/add_recipe.html',
                       {'editMode': True, 'cats': cats, 'recipe_obj': recipe, 'recipe_cats': recipe_cats})
 
+def checkout(request):
+    return render(request,'order/checkout.html')
+
 
 def login_view(request):
     if request.method == "POST":

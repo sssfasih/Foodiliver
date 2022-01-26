@@ -59,6 +59,8 @@
             {% if recipe in user.Tray_Items.all %}
 
                     <a href="{% url 'recipe_remfav' recipe.id %}" class="btn" name='fav'>Added</a>
+                    <a href="{% url 'checkout' %}" class="btn text-success" >Checkout</a>
+
 
             {% else %}
 
