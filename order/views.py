@@ -165,7 +165,16 @@ def recipe_edit(request, id):
                       {'editMode': True, 'cats': cats, 'recipe_obj': recipe, 'recipe_cats': recipe_cats})
 
 def checkout(request):
-    return render(request,'order/checkout.html')
+    tray_items = request.user.Tray_Items.all()
+    # Price calculation
+    sub_total = 0
+    for eachDish in tray_items:
+        sub_total += eachDish.Price
+    tax = round(0.05*sub_total)
+    shipping = 50
+    grand_total = sub_total+tax+shipping
+    bill = {'sub_total':sub_total,'tax': tax,'shipping': shipping,'grand_total': grand_total}
+    return render(request,'order/checkout.html', {'tray_items': tray_items,'bill':bill})
 
 
 def login_view(request):
