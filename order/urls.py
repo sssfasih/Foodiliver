@@ -17,4 +17,5 @@ urlpatterns = [
     path('dish_remfav/<int:id>', views.recipe_remfav, name='recipe_remfav'),
     path('dish_edit/<int:id>', views.recipe_edit, name='recipe_edit'),
     path('checkout', views.checkout, name='checkout'),
+    path('confirm', views.confirm_order, name='confirm_oder'),
 ]

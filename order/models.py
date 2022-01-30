@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import json
 # Create your models here.
 
 
@@ -33,4 +34,5 @@ class User(AbstractUser):
 
 class Order(models.Model):
     Dishes = models.ManyToManyField(Dish,related_name='Ordered_In')
-    Order_By = models.OneToOneField(User,on_delete=models.CASCADE)
+    Bill = models.JSONField(encoder=json.JSONEncoder,default=dict)
+    Order_By = models.ForeignKey(User,on_delete=models.CASCADE)

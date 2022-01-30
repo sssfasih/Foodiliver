@@ -3,7 +3,8 @@ from django.db import IntegrityError
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseBadRequest, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
-from .models import User, Category, Dish, DishImage
+from .models import User, Category, Dish, DishImage,Order
+from .utils import get_bill
 from markdown2 import markdown
 from django.utils.text import slugify
 
@@ -95,18 +96,9 @@ def view_profile(request):
 
     requested_user = User.objects.get(pk=id)
 
-    fav_recipes = requested_user.Tray_Items.all()
+    orders = Order.objects.filter(Order_By=request.user)
 
-    # r = request.GET.get('page')
-
-    # p = Paginator(posts, 10)
-
-    # if r:
-    #    page_posts = p.page(r)
-    # else:
-    #    page_posts = p.page(1)
-
-    return render(request, 'order/view_profile.html', {'recipes': fav_recipes})
+    return render(request, 'order/view_profile.html', {'orders': orders})
 
 
 def recipe_addfav(request, id):
@@ -166,14 +158,7 @@ def recipe_edit(request, id):
 
 def checkout(request):
     tray_items = request.user.Tray_Items.all()
-    # Price calculation
-    sub_total = 0
-    for eachDish in tray_items:
-        sub_total += eachDish.Price
-    tax = round(0.05*sub_total)
-    shipping = 50
-    grand_total = sub_total+tax+shipping
-    bill = {'sub_total':sub_total,'tax': tax,'shipping': shipping,'grand_total': grand_total}
+    bill = get_bill(tray_items)
     return render(request,'order/checkout.html', {'tray_items': tray_items,'bill':bill})
 
 
@@ -230,3 +215,15 @@ def signup(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "order/signup.html")
+
+def confirm_order(request):
+    tray_items = request.user.Tray_Items.all()
+    bill = get_bill(tray_items)
+    order = Order(Bill=bill,Order_By=request.user)
+    order.save()
+    for loop in tray_items:
+        order.Dishes.add(loop.id)
+    request.user.Tray_Items.clear()
+
+
+    return render(request,'order/confirm_order.html', {'order':order})

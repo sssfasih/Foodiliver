@@ -17,31 +17,39 @@
     </div>
 
     </section>
-    <section id="recipes" class="container recipes">
+    <section class="container-fluid">
+    <h1>My Orders</h1>
+    <table id="all_jobs" class="table table-striped table-hover" style="width:100%">
+       <thead><tr><th>Order No</th><th>Date</th><th>Time</th><th>Order ID</th></tr></thead>
+        <tbody>
+        {% for order in orders %}
+        <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>DATE</td>
+        <td>TIME</td>
+        <td>{{ order.id }}</td>
+        </tr>
 
-    <h1 class="text-center my-2">Favourite Recipes</h1>
-    <div class="row">
-        {% for eachRecipe in recipes %}
-        <div class="col-sm-12 col-md-6 col-lg-3 my-xs-4 my-lg-1">
-        <a href="{% url 'view_recipe' eachRecipe.Slug %}">
-        <div class="card">
-  <img width="300" height="225" src="{{ eachRecipe.images.first.image.url }}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h2 class="card-text text-center">{{ eachRecipe.Name|title}}</h2>
-  </div>
-</div>
-        </a>
-        </div>
-            {% if forloop.counter|divisibleby:4  %}
-        </div><div class="row">
-
-            {% endif %}
-        {% empty %}
-            <div class="container">
-            <p class="text-center h4">There are no Recipes in your Favourites list. Press 'Add to Favourites' button on Recipe pages to add in your list.</p>
-            </div>
         {% endfor %}
-    </div>
+        </tbody>
+
+    </table>
 
     </section>
+{% endblock %}
+
+
+{% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+    <script>
+    $(document).ready(function() {
+    $('#all_jobs').DataTable();
+} );
+    </script>
 {% endblock %}
