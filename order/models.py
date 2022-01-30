@@ -5,7 +5,6 @@ import json
 
 
 
-
 class Category(models.Model):
     Name = models.CharField(max_length=25, blank=False)
     photo = models.ImageField(upload_to='category_pics')
@@ -35,4 +34,6 @@ class User(AbstractUser):
 class Order(models.Model):
     Dishes = models.ManyToManyField(Dish,related_name='Ordered_In')
     Bill = models.JSONField(encoder=json.JSONEncoder,default=dict)
+    Date = models.DateField(auto_now_add=True)
+    Time = models.TimeField(auto_now_add=True)
     Order_By = models.ForeignKey(User,on_delete=models.CASCADE)

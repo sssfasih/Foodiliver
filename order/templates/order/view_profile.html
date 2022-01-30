@@ -25,8 +25,8 @@
         {% for order in orders %}
         <tr>
         <td>{{ forloop.counter }}</td>
-        <td>DATE</td>
-        <td>TIME</td>
+        <td>{{ order.Date }}</td>
+        <td>{{ order.Time }}</td>
         <td>{{ order.id }}</td>
         </tr>
 
