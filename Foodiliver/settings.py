@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-nf15u6b&mta+)8=ycsg8@gtli*-w__bzvm#baede_-dm*9g1^#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','foodiliver.azurewebsites.net']
 
 
 # Application definition
