@@ -1,4 +1,5 @@
 {
     "appService.defaultWebAppToDeploy": "/subscriptions/5161df9e-1848-436e-a968-87d01154520d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/foodiliver",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+    "liveServer.settings.port": 5501
 }

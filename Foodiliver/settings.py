@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-nf15u6b&mta+)8=ycsg8@gtli*-w__bzvm#baede_-dm*9g1^#
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','foodiliver.azurewebsites.net']
-
+CSRF_TRUSTED_ORIGINS=['https://foodiliver.azurewebsites.net','http://foodiliver.azurewebsites.net/']
 
 # Application definition
 
